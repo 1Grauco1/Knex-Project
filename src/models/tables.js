@@ -1,4 +1,4 @@
-const db = require("../config/database");
+import db from "../config/database.js";
 
 function createTables() {
   db.exec(`
@@ -42,4 +42,4 @@ function createTables() {
   `);
 }
 
-module.exports = { createTables };
+export { createTables };
