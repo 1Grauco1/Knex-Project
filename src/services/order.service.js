@@ -65,7 +65,9 @@ function findOrdersByUser(userId) {
   return orders.map((order) => {
     const items = db
       .prepare(
-        "SELECT oi.*, p.name AS product_name FROM order_items oi JOIN products p ON p.id = oi.product_id WHERE oi.order_id = ?",
+        `SELECT oi.*, p.name AS product_name 
+        FROM order_items oi JOIN products p ON p.id = oi.product_id 
+        WHERE oi.order_id = ?`,
       )
       .all(order.id);
 
