@@ -1,6 +1,7 @@
 {
   "name": "techmart-api",
   "version": "1.0.0",
+  "type": "module",
   "description": "API for TechMart virtual store",
   "main": "src/app.js",
   "scripts": {

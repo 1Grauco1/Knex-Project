@@ -1,4 +1,4 @@
-import sellerService from "../services/seller.service.js";
+import * as sellerService from "../services/seller.service.js";
 
 function listSales(req, res) {
   const sales = sellerService.findAllSales();

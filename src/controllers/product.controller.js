@@ -1,4 +1,4 @@
-import productService from "../services/product.service.js";
+import * as productService from "../services/product.service.js";
 
 function findAll(res) {
   const products = productService.findALl();

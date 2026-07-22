@@ -1,4 +1,4 @@
-import orderService from "../services/order.service.js";
+import * as orderService from "../services/order.service.js";
 
 function create(req, res) {
   const { items } = req.body;
