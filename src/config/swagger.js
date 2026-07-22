@@ -20,17 +20,25 @@ const swaggerDocument = {
         type: "object",
         required: ["name", "email", "password", "role"],
         properties: {
-          name: { type: "string", example: "John" },
-          email: { type: "string", format: "email", example: "john@test.com" },
+          name: { type: "string", example: "Glauco" },
+          email: {
+            type: "string",
+            format: "email",
+            example: "Glauco@test.com",
+          },
           password: { type: "string", example: "123456" },
-          role: { type: "string", enum: ["client", "seller"], example: "client" },
+          role: {
+            type: "string",
+            enum: ["client", "seller"],
+            example: "client",
+          },
         },
       },
       LoginRequest: {
         type: "object",
         required: ["email", "password"],
         properties: {
-          email: { type: "string", format: "email", example: "john@test.com" },
+          email: { type: "string", format: "email", example: "Glaco@test.com" },
           password: { type: "string", example: "123456" },
         },
       },
@@ -103,12 +111,45 @@ const swaggerDocument = {
         summary: "Register a new user",
         requestBody: {
           required: true,
-          content: { "application/json": { schema: { $ref: "#/components/schemas/RegisterRequest" } } },
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/RegisterRequest" },
+            },
+          },
         },
         responses: {
-          "201": { description: "User registered", content: { "application/json": { schema: { type: "object", properties: { id: { type: "integer" }, name: { type: "string" }, email: { type: "string" }, role: { type: "string" } } } } } },
-          "400": { description: "Validation error", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
-          "409": { description: "Email already registered", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+          201: {
+            description: "User registered",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    id: { type: "integer" },
+                    name: { type: "string" },
+                    email: { type: "string" },
+                    role: { type: "string" },
+                  },
+                },
+              },
+            },
+          },
+          400: {
+            description: "Validation error",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
+          409: {
+            description: "Email already registered",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
         },
       },
     },
@@ -118,12 +159,40 @@ const swaggerDocument = {
         summary: "Login and get a JWT token",
         requestBody: {
           required: true,
-          content: { "application/json": { schema: { $ref: "#/components/schemas/LoginRequest" } } },
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/LoginRequest" },
+            },
+          },
         },
         responses: {
-          "200": { description: "Login successful", content: { "application/json": { schema: { type: "object", properties: { token: { type: "string" } } } } } },
-          "400": { description: "Validation error", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
-          "401": { description: "Invalid credentials", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+          200: {
+            description: "Login successful",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: { token: { type: "string" } },
+                },
+              },
+            },
+          },
+          400: {
+            description: "Validation error",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
+          401: {
+            description: "Invalid credentials",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
         },
       },
     },
@@ -133,8 +202,18 @@ const swaggerDocument = {
         summary: "List all products",
         security: [{ bearerAuth: [] }],
         responses: {
-          "200": { description: "Product list", content: { "application/json": { schema: { type: "array", items: { $ref: "#/components/schemas/Product" } } } } },
-          "401": { description: "Unauthorized" },
+          200: {
+            description: "Product list",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: { $ref: "#/components/schemas/Product" },
+                },
+              },
+            },
+          },
+          401: { description: "Unauthorized" },
         },
       },
       post: {
@@ -143,13 +222,31 @@ const swaggerDocument = {
         security: [{ bearerAuth: [] }],
         requestBody: {
           required: true,
-          content: { "application/json": { schema: { $ref: "#/components/schemas/CreateProductRequest" } } },
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/CreateProductRequest" },
+            },
+          },
         },
         responses: {
-          "201": { description: "Product created", content: { "application/json": { schema: { $ref: "#/components/schemas/Product" } } } },
-          "400": { description: "Validation error", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
-          "401": { description: "Unauthorized" },
-          "403": { description: "Access denied (not a seller)" },
+          201: {
+            description: "Product created",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Product" },
+              },
+            },
+          },
+          400: {
+            description: "Validation error",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
+          401: { description: "Unauthorized" },
+          403: { description: "Access denied (not a seller)" },
         },
       },
     },
@@ -159,12 +256,31 @@ const swaggerDocument = {
         summary: "Get a product by ID",
         security: [{ bearerAuth: [] }],
         parameters: [
-          { name: "id", in: "path", required: true, schema: { type: "integer" } },
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "integer" },
+          },
         ],
         responses: {
-          "200": { description: "Product found", content: { "application/json": { schema: { $ref: "#/components/schemas/Product" } } } },
-          "401": { description: "Unauthorized" },
-          "404": { description: "Product not found", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+          200: {
+            description: "Product found",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Product" },
+              },
+            },
+          },
+          401: { description: "Unauthorized" },
+          404: {
+            description: "Product not found",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
         },
       },
       put: {
@@ -172,18 +288,48 @@ const swaggerDocument = {
         summary: "Update a product (seller only)",
         security: [{ bearerAuth: [] }],
         parameters: [
-          { name: "id", in: "path", required: true, schema: { type: "integer" } },
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "integer" },
+          },
         ],
         requestBody: {
           required: true,
-          content: { "application/json": { schema: { $ref: "#/components/schemas/CreateProductRequest" } } },
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/CreateProductRequest" },
+            },
+          },
         },
         responses: {
-          "200": { description: "Product updated", content: { "application/json": { schema: { $ref: "#/components/schemas/Product" } } } },
-          "400": { description: "Validation error", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
-          "401": { description: "Unauthorized" },
-          "403": { description: "Access denied" },
-          "404": { description: "Product not found", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+          200: {
+            description: "Product updated",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Product" },
+              },
+            },
+          },
+          400: {
+            description: "Validation error",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
+          401: { description: "Unauthorized" },
+          403: { description: "Access denied" },
+          404: {
+            description: "Product not found",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
         },
       },
       delete: {
@@ -191,13 +337,25 @@ const swaggerDocument = {
         summary: "Delete a product (seller only)",
         security: [{ bearerAuth: [] }],
         parameters: [
-          { name: "id", in: "path", required: true, schema: { type: "integer" } },
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "integer" },
+          },
         ],
         responses: {
-          "204": { description: "Product deleted" },
-          "401": { description: "Unauthorized" },
-          "403": { description: "Access denied" },
-          "404": { description: "Product not found", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+          204: { description: "Product deleted" },
+          401: { description: "Unauthorized" },
+          403: { description: "Access denied" },
+          404: {
+            description: "Product not found",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
         },
       },
     },
@@ -214,18 +372,42 @@ const swaggerDocument = {
                 type: "object",
                 required: ["items"],
                 properties: {
-                  items: { type: "array", items: { $ref: "#/components/schemas/OrderItem" } },
+                  items: {
+                    type: "array",
+                    items: { $ref: "#/components/schemas/OrderItem" },
+                  },
                 },
               },
             },
           },
         },
         responses: {
-          "201": { description: "Order created", content: { "application/json": { schema: { $ref: "#/components/schemas/Order" } } } },
-          "400": { description: "Validation error", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
-          "401": { description: "Unauthorized" },
-          "403": { description: "Access denied (not a client)" },
-          "409": { description: "Insufficient stock", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+          201: {
+            description: "Order created",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Order" },
+              },
+            },
+          },
+          400: {
+            description: "Validation error",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
+          401: { description: "Unauthorized" },
+          403: { description: "Access denied (not a client)" },
+          409: {
+            description: "Insufficient stock",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
         },
       },
       get: {
@@ -233,9 +415,19 @@ const swaggerDocument = {
         summary: "List orders for the logged-in user (client only)",
         security: [{ bearerAuth: [] }],
         responses: {
-          "200": { description: "Order list", content: { "application/json": { schema: { type: "array", items: { $ref: "#/components/schemas/Order" } } } } },
-          "401": { description: "Unauthorized" },
-          "403": { description: "Access denied (not a client)" },
+          200: {
+            description: "Order list",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: { $ref: "#/components/schemas/Order" },
+                },
+              },
+            },
+          },
+          401: { description: "Unauthorized" },
+          403: { description: "Access denied (not a client)" },
         },
       },
     },
@@ -245,9 +437,9 @@ const swaggerDocument = {
         summary: "List all sales (seller only)",
         security: [{ bearerAuth: [] }],
         responses: {
-          "200": { description: "Sales list" },
-          "401": { description: "Unauthorized" },
-          "403": { description: "Access denied (not a seller)" },
+          200: { description: "Sales list" },
+          401: { description: "Unauthorized" },
+          403: { description: "Access denied (not a seller)" },
         },
       },
     },
@@ -257,13 +449,25 @@ const swaggerDocument = {
         summary: "Get sales by product (seller only)",
         security: [{ bearerAuth: [] }],
         parameters: [
-          { name: "product_id", in: "path", required: true, schema: { type: "integer" } },
+          {
+            name: "product_id",
+            in: "path",
+            required: true,
+            schema: { type: "integer" },
+          },
         ],
         responses: {
-          "200": { description: "Sales details" },
-          "401": { description: "Unauthorized" },
-          "403": { description: "Access denied" },
-          "404": { description: "Product not found", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+          200: { description: "Sales details" },
+          401: { description: "Unauthorized" },
+          403: { description: "Access denied" },
+          404: {
+            description: "Product not found",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Error" },
+              },
+            },
+          },
         },
       },
     },
