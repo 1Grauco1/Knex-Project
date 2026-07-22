@@ -12,7 +12,7 @@ function register(name, email, password, role) {
 
   const hashed = bcrypt.hashSync(password, 10);
   const result = db
-    .prepare("INSERT INTO users(name, email, password, role) VALUES ?, ?, ?, ?")
+    .prepare("INSERT INTO users(name, email, password, role) VALUES (?, ?, ?, ?)")
     .run(name, email, hashed, role);
 
   return { id: result.lastInsertRowid, name, email, role };

@@ -1,7 +1,7 @@
 import * as productService from "../services/product.service.js";
 
-function findAll(res) {
-  const products = productService.findALl();
+function findAll(req, res) {
+  const products = productService.findAll();
   return res.json(products);
 }
 
