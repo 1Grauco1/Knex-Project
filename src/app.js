@@ -26,7 +26,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`TechMart API running on http://localhost:${PORT}/docs`);
-});
+export default app;

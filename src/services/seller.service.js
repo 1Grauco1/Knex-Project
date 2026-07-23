@@ -16,7 +16,7 @@ function findAllSales() {
         FROM order_items oi JOIN products p ON p.id= oi.product_id 
         WHERE oi.order_id = ?`,
       )
-      .all(order_id);
+      .all(order.id);
 
     return { ...order, items };
   });
